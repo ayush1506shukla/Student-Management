@@ -1,4 +1,4 @@
 # Student-Management
 This is my First Project.
 <br>
-Auther-Ayush Shukla
+Auther-Ayush Shukla (Student Management)

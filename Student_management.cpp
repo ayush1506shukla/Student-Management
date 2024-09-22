@@ -3,13 +3,13 @@
 #include<sstream>
 #include<vector>
 using namespace std;
-bool isDuplicate(const std::string& rollNo, const std::string& filename) {
-    std::ifstream csvFile("Book2.csv");
-    std::string line;
-    while (std::getline(csvFile, line)) {
-        std::stringstream ss(line); 
-        std::string firstColumn;
-        if (std::getline(ss, firstColumn, ',')) {
+bool isDuplicate(const string& rollNo, const string& filename) {
+    ifstream csvFile("Book2.csv");
+    string line;
+    while (getline(csvFile, line)) {
+        stringstream ss(line); 
+        string firstColumn;
+        if (getline(ss, firstColumn, ',')) {
             if (firstColumn == rollNo) {
                 csvFile.close();
                 return true;
@@ -19,55 +19,55 @@ bool isDuplicate(const std::string& rollNo, const std::string& filename) {
     csvFile.close();
     return false;
 }
-bool searchByRollNumber(const std::string& rollNo, const std::string& filename) {
-    std::ifstream csvFile("Book2.csv");
-    std::string line;
-    while (std::getline(csvFile, line)) {
-        std::stringstream ss(line); 
-        std::string firstColumn;
-        if (std::getline(ss, firstColumn, ',')) {
+bool searchByRollNumber(const string& rollNo, const string& filename) {
+    ifstream csvFile("Book2.csv");
+    string line;
+    while (getline(csvFile, line)) {
+        stringstream ss(line); 
+        string firstColumn;
+        if (getline(ss, firstColumn, ',')) {
             if (firstColumn == rollNo) {
-                std::cout << "Record found\n" << line << '\n';
+                cout << "Record found\n" << line << '\n';
                 csvFile.close();
                 return true;
             }
         }
     }
 
-    std::cout << "Record not found for roll number: " << rollNo << '\n';
+    cout << "Record not found for roll number: " << rollNo << '\n';
     csvFile.close();
     return false;
 }
-bool updateByRollNumber(const std::string& rollNo, const std::string& filename) {
-    std::ifstream inputFile("Book2.csv");
-    std::ofstream outputFile("temp.csv", std::ios::trunc);
+bool updateByRollNumber(const string& rollNo, const string& filename) {
+    ifstream inputFile("Book2.csv");
+    ofstream outputFile("temp.csv", ios::trunc);
 
     if (!inputFile.is_open() || !outputFile.is_open()) {
-        std::cerr << "Error opening files.\n";
+        cerr << "Error opening files.\n";
         return false;
     }
 
-    std::string line;
+    string line;
     bool found = false;
 
-    while (std::getline(inputFile, line)) {
-        std::stringstream ss(line);
-        std::string firstColumn;
-        if (std::getline(ss, firstColumn, ',')) {
+    while (getline(inputFile, line)) {
+        stringstream ss(line);
+        string firstColumn;
+        if (getline(ss, firstColumn, ',')) {
             if (firstColumn == rollNo) {
-                std::string newName, newRollNo, newAge,newMarks,newEmail,newContact;
-                std::cout << "Enter new roll number: ";
-                std::cin>>newRollNo;
-                std::cout << "Enter new name: ";
-                std::cin>>newName;
-                std::cout << "Enter new age: ";
-                std::cin>>newAge;
-                std::cout << "Enter new Marks: ";
-                std::cin>>newMarks;
-                std::cout << "Enter new Email: ";
-                std::cin>>newEmail;
-                std::cout << "Enter new Contact: ";
-                std::cin>>newContact;
+                string newName, newRollNo, newAge,newMarks,newEmail,newContact;
+                cout << "Enter new roll number: ";
+                cin>>newRollNo;
+                cout << "Enter new name: ";
+                cin>>newName;
+                cout << "Enter new age: ";
+                cin>>newAge;
+                cout << "Enter new Marks: ";
+                cin>>newMarks;
+                cout << "Enter new Email: ";
+                cin>>newEmail;
+                cout << "Enter new Contact: ";
+                cin>>newContact;
 
                 outputFile << newRollNo << "," << newName << "," << newAge <<","<<newMarks<<","<<newEmail<<","<<newContact<<'\n';
                 found = true;
@@ -79,33 +79,33 @@ bool updateByRollNumber(const std::string& rollNo, const std::string& filename) 
 
     inputFile.close();
     outputFile.close();
-    std::remove(filename.c_str());
-    std::rename("temp.csv", filename.c_str());
+    remove(filename.c_str());
+    rename("temp.csv", filename.c_str());
 
     if (found) {
-        std::cout << "Record with roll number " << rollNo << " updated.\n";
+        cout << "Record with roll number " << rollNo << " updated.\n";
     } else {
-        std::cout << "Record not found for roll number: " << rollNo << '\n';
+        cout << "Record not found for roll number: " << rollNo << '\n';
     }
 
     return found;
 }
-bool deleteByRollNumber(const std::string& rollNo, const std::string& filename) {
-    std::ifstream inputFile("Book2.csv");
-    std::ofstream outputFile("temp.csv", std::ios::trunc);
+bool deleteByRollNumber(const string& rollNo, const string& filename) {
+    ifstream inputFile("Book2.csv");
+    ofstream outputFile("temp.csv", ios::trunc);
 
     if (!inputFile.is_open() || !outputFile.is_open()) {
-        std::cerr << "Error opening files.\n";
+        cerr << "Error opening files.\n";
         return false;
     }
 
-    std::string line;
+    string line;
     bool found = false;
 
-    while (std::getline(inputFile, line)) {
-        std::stringstream ss(line);
-        std::string firstColumn;
-        if (std::getline(ss, firstColumn, ',')) {
+    while (getline(inputFile, line)) {
+        stringstream ss(line);
+        string firstColumn;
+        if (getline(ss, firstColumn, ',')) {
             if (firstColumn != rollNo) {
                 outputFile << line << '\n';
             } else {
@@ -116,74 +116,74 @@ bool deleteByRollNumber(const std::string& rollNo, const std::string& filename) 
 
     inputFile.close();
     outputFile.close();
-    std::remove(filename.c_str());
-    std::rename("temp.csv", filename.c_str());
+    remove(filename.c_str());
+    rename("temp.csv", filename.c_str());
 
     if (found) {
-        std::cout << "Record with roll number " << rollNo << " deleted.\n";
+        cout << "Record with roll number " << rollNo << " deleted.\n";
     } else {
-        std::cout << "Record not found for roll number: " << rollNo << '\n';
+        cout << "Record not found for roll number: " << rollNo << '\n';
     }
 
     return found;
 }
 void AddNewStudent(){
-	std::string rollNo,name,email,contact;
+	string rollNo,name,email,contact;
 	   double age,marks;
 	
-	 std::ofstream csvFile("Book2.csv",std::ios::app);
-	    std::cout<<"Enter Roll No.:";
-	    std::cin>>rollNo;
+	 ofstream csvFile("Book2.csv",ios::app);
+	    cout<<"Enter Roll No.:";
+	    cin>>rollNo;
 	    if (isDuplicate(rollNo, "Book2.csv")) {
-        std::cout << "Roll number is already exists\n";
+        cout << "Roll number is already exists\n";
           return;
         }
-	    std::cout<<"Enter Name:";
-	    std::cin>>name;
-	    std::cout<<"Enter Age:";
-	    std::cin>>age;
-	    std::cout<<"Enter Marks Out of 500:";
-	    std::cin>>marks;
-	    std::cout<<"Enter Email Id:";
-	    std::cin>>email;
-	    std::cout<<"Enter Contact Number:";
-	    std::cin>>contact;
+	    cout<<"Enter Name:";
+	    cin>>name;
+	    cout<<"Enter Age:";
+	    cin>>age;
+	    cout<<"Enter Marks Out of 500:";
+	    cin>>marks;
+	    cout<<"Enter Email Id:";
+	    cin>>email;
+	    cout<<"Enter Contact Number:";
+	    cin>>contact;
 	    csvFile<<rollNo<<","<<name<<","<<age<<","<<marks<<","<<email<<","<<contact<<"\n";
 		csvFile.close();
-		std::cout<<"Student Details Added Successfully..."<<endl;
+		cout<<"Student Details Added Successfully..."<<endl;
 		return;
 	} 
 
-void displayAllRecords(const std::string& filename) {
-	std::string rollNo,name,email,contact;
+void displayAllRecords(const string& filename) {
+	string rollNo,name,email,contact;
 	   double age,marks;
-    std::ifstream csvFile("Book2.csv");
-    std::string line;
-    while (std::getline(csvFile, line)) {
-        std::cout << line << '\n';
+    ifstream csvFile("Book2.csv");
+    string line;
+    while (getline(csvFile, line)) {
+        cout << line << '\n';
     }
 
     csvFile.close();
 }
 void SearchStudent(){
-	std::string rollNo;
-    std::cout << "Enter roll number to search: ";
-    std::cin>>rollNo;
+	string rollNo;
+    cout << "Enter roll number to search: ";
+    cin>>rollNo;
 
     searchByRollNumber(rollNo, "Book2.csv");
 	   	return;
 }
 void UpdateStudent(){
-	std::string updateRollNo;
-    std::cout << "Enter roll number to update: ";
-    std::cin>>updateRollNo;
+	string updateRollNo;
+    cout << "Enter roll number to update: ";
+    cin>>updateRollNo;
 
     updateByRollNumber(updateRollNo, "Book2.csv");
 }
 void Deletestudent(){
-	std::string deleteRollNo;
-    std::cout << "Enter roll number to delete: ";
-    std::cin>>deleteRollNo;
+	string deleteRollNo;
+    cout << "Enter roll number to delete: ";
+    cin>>deleteRollNo;
 
     deleteByRollNumber(deleteRollNo, "Book2.csv");
 }
